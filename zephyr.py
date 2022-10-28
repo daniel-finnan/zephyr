@@ -44,14 +44,14 @@ for station in observation_stations['features']:
     latitude = station['properties']['Latitude']
     longitude = station['properties']['Longitude']
     # Select today's data
-    station_today = weather_today.loc[weather_today['numer_sta'] == id, ['rafper']].copy(deep=True)
+    station_today = weather_today[weather_today['numer_sta'] == id]['rafper']
     # Escape empty dataframe
     if station_today.empty:
         continue
     # Select today's wind speed
-    wind = station_today.iloc[0][0]
+    wind = station_today.iloc[0]
     # Select subset of historic data matching on id
-    station_historic = weather_historic.loc[weather_historic['numer_sta'] == id, ['date', 'rafper']].copy()
+    station_historic = weather_historic.loc[weather_historic['numer_sta'] == id, ['date', 'rafper']]
     # Drop rows with no wind data
     station_historic_wind = station_historic.dropna(subset=['rafper'])
     #Escape empty dataframe
